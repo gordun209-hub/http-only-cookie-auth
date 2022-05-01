@@ -1,4 +1,7 @@
+import { useAppSelector } from '@/app/hooks'
+
 const AdminPage = () => {
-	return <div>admin</div>
+	const userEmail = useAppSelector(state => state.auth.user?.email)
+	return <div>{userEmail}</div>
 }
 export default AdminPage

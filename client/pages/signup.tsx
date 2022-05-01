@@ -12,7 +12,6 @@ import { useState } from 'react'
 
 import { useAppSelector } from '@/app/hooks'
 import { PasswordInput } from '@/components/LoginPage'
-import LogOutButton from '@/components/LogOutButton/LogOutButton'
 import { selectUser } from '@/features/auth/authSlice'
 import { useSignupMutation } from '@/services/api'
 

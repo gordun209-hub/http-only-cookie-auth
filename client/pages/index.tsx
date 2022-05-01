@@ -2,8 +2,6 @@ import { Container } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
-import Counter from '@/features/counter/Counter'
-
 const Home: NextPage = () => {
 	return (
 		<Container minW={'100vw'} w={'100vw'} h={'100vh'} bg={'blackAlpha.600'}>
