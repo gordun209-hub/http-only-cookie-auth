@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import { AppState } from '@/app/store'
 
 type authStateType = {
-	isLoggedIn: boolean
 	user: {
 		id: number
 		username: string
@@ -14,7 +13,6 @@ type authStateType = {
 }
 
 const initialState: authStateType = {
-	isLoggedIn: false,
 	user: null
 }
 
@@ -23,7 +21,7 @@ const authSlice = createSlice({
 	initialState,
 	reducers: {
 		setAuth: (state, action) => {
-			state = action.payload
+			state.user = action.payload
 		}
 	}
 })

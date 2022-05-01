@@ -9,10 +9,9 @@ import {
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-import { useAppSelector } from '@/app/hooks'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { PasswordInput } from '@/components/LoginPage'
-import LogOutButton from '@/components/LogOutButton/LogOutButton'
-import { selectUser } from '@/features/auth/authSlice'
+import { selectUser, setAuth } from '@/features/auth/authSlice'
 import { useLoginMutation } from '@/services/api'
 
 const LoginPage = () => {
@@ -32,6 +31,8 @@ const LoginPage = () => {
 		target: { name, value }
 	}: React.ChangeEvent<HTMLInputElement>) =>
 		setFormState(prev => ({ ...prev, [name]: value }))
+	const dispatch = useAppDispatch()
+
 	return (
 		<Center h='500px'>
 			<VStack spacing='4'>
@@ -43,7 +44,6 @@ const LoginPage = () => {
 						onChange={handleChange}
 					/>
 				</InputGroup>
-				<LogOutButton />
 
 				<InputGroup>
 					<PasswordInput name='password' onChange={handleChange} />
@@ -54,8 +54,8 @@ const LoginPage = () => {
 					isLoading={isLoading}
 					onClick={async () => {
 						const user = await login(formState).unwrap()
-						localStorage.setItem('user', JSON.stringify(user))
-						router.push('/')
+						dispatch(setAuth(user))
+						await router.push('/').then(() => window.location.reload())
 					}}
 				>
 					Login

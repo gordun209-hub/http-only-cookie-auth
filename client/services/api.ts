@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+import { setAuth } from '@/features/auth/authSlice'
+
 export type LoginRequest = {
 	password: string
 	email: string
@@ -54,5 +56,6 @@ export const {
 	useLoginMutation,
 	useUseUserQuery,
 	useSignupMutation,
-	useLogOutMutation
+	useLogOutMutation,
+	useLazyUseUserQuery
 } = api

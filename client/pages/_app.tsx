@@ -10,9 +10,8 @@ import Layout from '@/components/Layout/Layout'
 const MyApp = ({ Component, pageProps }: AppProps) => (
 	<Provider store={store}>
 		<ChakraProvider>
-			<Layout>
-				<Component {...pageProps} />
-			</Layout>
+			<Layout />
+			<Component {...pageProps} />
 		</ChakraProvider>
 	</Provider>
 )

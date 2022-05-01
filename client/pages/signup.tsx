@@ -45,7 +45,6 @@ const LoginPage = () => {
 						onChange={handleChange}
 					/>
 				</InputGroup>
-				<LogOutButton />
 
 				<InputGroup>
 					<PasswordInput name='password' onChange={handleChange} />
