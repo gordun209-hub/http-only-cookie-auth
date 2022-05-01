@@ -8,6 +8,9 @@ const authRouter = Router()
 
 authRouter.get('/', async (req, res) => {
   const token = req.cookies.TRAX_ACCESS_TOKEN
+  if (!token) {
+    return res.sendStatus(401)
+  }
   if (token) {
     let user: null | User
     try {
@@ -25,7 +28,7 @@ authRouter.get('/', async (req, res) => {
       res.json({ error: 'Invalid token' })
       return
     }
-    res.json(user)
+    res.json(user).status(200)
   }
 })
 

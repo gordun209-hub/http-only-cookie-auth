@@ -11,33 +11,33 @@ import LogOutButton from '../LogOutButton/LogOutButton'
 const Layout = () => {
 	const user = useAppSelector(state => state.auth.user)
 	const dispatch = useAppDispatch()
-	const { data, isFetching, isLoading, isError } = useUseUserQuery()
+	const { data, isLoading, isError } = useUseUserQuery()
 	useEffect(() => {
-		if (data) {
-			dispatch(setAuth(data))
-		}
+		dispatch(setAuth(data))
 	}, [data, dispatch])
-
+	if (isLoading) {
+		return null
+	}
 	return (
 		<>
 			<Flex w={'100%'}>
-				<Flex w={'100%'}>
+				<Flex>
 					<Link passHref href='/'>
-						<Button className='btn-logo'>FEED</Button>
+						<Button>FEED</Button>
 					</Link>
-					{data && !isLoading ? (
+					{data ? (
 						<Box w={'100%'} justifySelf='end'>
 							<Link passHref href='/admin'>
-								<Button justifySelf={'end'} className='btn-blue'>
-									Write posts
-								</Button>
+								<Button justifySelf={'end'}>Write posts</Button>
 							</Link>
 							<LogOutButton />
 						</Box>
 					) : (
-						<Link passHref href='/login'>
-							<Button className='btn-blue'>Log in</Button>
-						</Link>
+						<Button>
+							<Link passHref href='/login'>
+								Login
+							</Link>
+						</Button>
 					)}
 				</Flex>
 			</Flex>

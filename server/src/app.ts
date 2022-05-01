@@ -6,7 +6,7 @@ import authRouter from './controllers/auth'
 import LoginRouter from './controllers/login'
 import logOutRouter from './controllers/logOut'
 import SignupRoute from './controllers/signup'
-import { errorHandler, requestLogger } from './utils/middleware'
+import { requestLogger } from './utils/middleware'
 
 const app: Application = express()
 app.use(express.json())
@@ -17,7 +17,6 @@ app.use(
   })
 )
 app.use(cookieParser())
-app.use(errorHandler)
 app.use(requestLogger)
 app.use('/api/login', LoginRouter)
 app.use('/api/signup', SignupRoute)

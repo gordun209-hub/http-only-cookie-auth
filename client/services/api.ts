@@ -55,5 +55,6 @@ export const {
 	useUseUserQuery,
 	useSignupMutation,
 	useLogOutMutation,
-	useLazyUseUserQuery
+	useLazyUseUserQuery,
+	util
 } = api
