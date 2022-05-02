@@ -8,7 +8,7 @@ import prisma from '../lib/prisma'
 const signupRouter = Router()
 
 signupRouter.post('/', async (req, res) => {
-  const salt = await bcrypt.genSaltSync(10)
+  const salt = bcrypt.genSaltSync(10)
   const {
     email,
     password
@@ -42,7 +42,7 @@ signupRouter.post('/', async (req, res) => {
   //! set header for cookie
   res.setHeader(
     'Set-cookie',
-    cookie.serialize('ACCESS_TOKEN', token, {
+    cookie.serialize('TRAX_ACCESS_TOKEN', token, {
       httpOnly: true,
       maxAge: 8 * 60 * 60,
       path: '/',

@@ -10,16 +10,16 @@ import {
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-import { useAppSelector } from '@/app/hooks'
+import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { PasswordInput } from '@/components/LoginPage'
-import { selectUser } from '@/features/auth/authSlice'
+import { selectUser, setAuth } from '@/features/auth/authSlice'
 import { useSignupMutation } from '@/services/api'
 
 const LoginPage = () => {
 	const router = useRouter()
 	const user = useAppSelector(selectUser)
-	const [login, { isLoading }] = useSignupMutation()
-
+	const [signup, { isLoading }] = useSignupMutation()
+	const dispatch = useAppDispatch()
 	if (user) {
 		router.push('/')
 	}
@@ -53,10 +53,12 @@ const LoginPage = () => {
 					colorScheme='green'
 					isLoading={isLoading}
 					onClick={async () => {
-						await login(formState).then(() => router.push('/'))
+						const user = await signup(formState).unwrap()
+						dispatch(setAuth(user))
+						await router.push('/')
 					}}
 				>
-					Login
+					Signup
 				</Button>
 				<Divider />
 			</VStack>

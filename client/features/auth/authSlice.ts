@@ -5,6 +5,8 @@ import { AppState } from '@/app/store'
 type authStateType = {
 	user: {
 		id: number
+		firstName: string
+		lastName: string
 		username: string
 		email: string
 		createdAt: string

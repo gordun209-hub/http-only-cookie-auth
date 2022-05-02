@@ -11,7 +11,7 @@ import LogOutButton from '../LogOutButton/LogOutButton'
 const Layout = () => {
 	const user = useAppSelector(state => state.auth.user)
 	const dispatch = useAppDispatch()
-	const { data, isLoading, isError } = useUseUserQuery()
+	const { data, isLoading } = useUseUserQuery()
 	useEffect(() => {
 		dispatch(setAuth(data))
 	}, [data, dispatch])
@@ -33,11 +33,18 @@ const Layout = () => {
 							<LogOutButton />
 						</Box>
 					) : (
-						<Button>
-							<Link passHref href='/login'>
-								Login
-							</Link>
-						</Button>
+						<Box>
+							<Button>
+								<Link passHref href='/login'>
+									Login
+								</Link>
+							</Button>
+							<Button>
+								<Link href='/signup'>
+									<a>Signup</a>
+								</Link>
+							</Button>
+						</Box>
 					)}
 				</Flex>
 			</Flex>

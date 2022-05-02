@@ -55,7 +55,7 @@ const LoginPage = () => {
 					onClick={async () => {
 						const user = await login(formState).unwrap()
 						dispatch(setAuth(user))
-						await router.push('/').then(() => window.location.reload())
+						await router.push('/')
 					}}
 				>
 					Login

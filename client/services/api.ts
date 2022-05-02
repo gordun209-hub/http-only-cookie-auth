@@ -21,20 +21,23 @@ export const api = createApi({
 		credentials: 'include'
 	}),
 
+	tagTypes: ['user', 'Post'],
 	endpoints: builder => ({
 		login: builder.mutation<LoginResponse, LoginRequest>({
 			query: credentials => ({
 				url: '/api/login',
 				method: 'POST',
 				body: credentials
-			})
+			}),
+			invalidatesTags: ['user']
 		}),
 		signup: builder.mutation<LoginResponse, LoginRequest>({
 			query: credentials => ({
 				url: '/api/signup',
 				method: 'POST',
 				body: credentials
-			})
+			}),
+			invalidatesTags: ['user']
 		}),
 		logOut: builder.mutation<void, void>({
 			query: () => ({
@@ -46,7 +49,8 @@ export const api = createApi({
 			query: () => ({
 				url: `/api/me`,
 				method: 'GET'
-			})
+			}),
+			providesTags: ['user']
 		})
 	})
 })
