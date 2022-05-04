@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import { PasswordInput } from '@/components/LoginPage'
+import { PasswordInput } from '@/components/index'
 import { selectUser, setAuth } from '@/features/auth/authSlice'
 import { useLoginMutation } from '@/services/api'
 
@@ -34,11 +34,12 @@ const LoginPage = () => {
 	const dispatch = useAppDispatch()
 
 	return (
-		<Center h='500px'>
+		<Center className='bg-black' h='500px'>
 			<VStack spacing='4'>
 				<InputGroup>
 					<Input
 						name='email'
+						data-cy='email-input'
 						type='text'
 						placeholder='Email'
 						onChange={handleChange}
@@ -49,9 +50,10 @@ const LoginPage = () => {
 					<PasswordInput name='password' onChange={handleChange} />
 				</InputGroup>
 				<Button
-					isFullWidth
+					width={'100%'}
 					colorScheme='green'
 					isLoading={isLoading}
+					data-cy={'form-login'}
 					onClick={async () => {
 						const user = await login(formState).unwrap()
 						dispatch(setAuth(user))

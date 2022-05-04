@@ -3,7 +3,7 @@ import cookie from 'cookie'
 import Router from 'express'
 import jwt from 'jsonwebtoken'
 
-import prisma from '../lib/prisma'
+import prisma from '../../lib/prisma'
 
 const signupRouter = Router()
 
@@ -17,8 +17,10 @@ signupRouter.post('/', async (req, res) => {
     password: string
   } = req.body
   let user
+
   try {
     //! create user with prisma client and hash given password
+
     user = await prisma.user.create({
       data: {
         email,
@@ -51,6 +53,7 @@ signupRouter.post('/', async (req, res) => {
     })
   )
   //! response with user
+
   res.json(user)
 })
 

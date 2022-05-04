@@ -2,7 +2,7 @@ import { User } from '@prisma/client'
 import Router from 'express'
 import jwt from 'jsonwebtoken'
 
-import prisma from '../lib/prisma'
+import prisma from '../../lib/prisma'
 
 const authRouter = Router()
 
@@ -11,6 +11,7 @@ authRouter.get('/', async (req, res) => {
   if (!token) {
     return res.sendStatus(401)
   }
+
   if (token) {
     let user: null | User
     try {

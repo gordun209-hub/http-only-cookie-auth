@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
-		"target": "es5",
-		"lib": ["es5", "dom"],
-		"types": ["cypress"]
+		"target": "ES2022",
+		"lib": ["es5", "ESNext", "dom"],
+		"types": ["cypress", "@testing-library/cypress"]
 	},
-	"include": ["**/*.ts", "./**/*"]
+	"include": ["**/*.ts", "support/index.js"]
 }

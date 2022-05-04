@@ -12,8 +12,9 @@ const PasswordInput = ({
 	const handleClick = () => setShow(!show)
 
 	return (
-		<InputGroup size='md'>
+		<InputGroup data-cy={'input-group'} size='md'>
 			<Input
+				data-cy={'password-input'}
 				pr='4.5rem'
 				type={show ? 'text' : 'password'}
 				placeholder='Enter password'
@@ -21,7 +22,12 @@ const PasswordInput = ({
 				onChange={onChange}
 			/>
 			<InputRightElement width='4.5rem'>
-				<Button h='1.75rem' size='sm' onClick={handleClick}>
+				<Button
+					data-cy={'hide-or-show'}
+					h='1.75rem'
+					size='sm'
+					onClick={handleClick}
+				>
 					{show ? 'Hide' : 'Show'}
 				</Button>
 			</InputRightElement>

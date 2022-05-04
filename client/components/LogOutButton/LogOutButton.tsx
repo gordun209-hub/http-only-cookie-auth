@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Button, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 import { useAppDispatch } from '@/app/hooks'
@@ -13,13 +13,16 @@ const LogOutButton = () => {
 		logOut().then(() => {
 			dispatch(
 				setAuth({
-					user: null,
-					isLoggedIn: false
+					user: null
 				})
 			)
 			router.reload()
 		})
 	}
-	return <Button onClick={handleClick}>Log out</Button>
+	return (
+		<Button data-cy={'logout-btn'} onClick={handleClick}>
+			<Text>Logout</Text>
+		</Button>
+	)
 }
 export default LogOutButton

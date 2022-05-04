@@ -1,4 +1,4 @@
-import { Box, Button, Center, Container, Text } from '@chakra-ui/react'
+import { Box, Center, Container, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 
 import { useAppSelector } from '@/app/hooks'

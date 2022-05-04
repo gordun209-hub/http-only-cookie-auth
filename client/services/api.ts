@@ -12,10 +12,15 @@ export type LoginResponse = {
 	createdAt: string
 	updatedAt: string
 }
+export type changeUserInfoProps = {
+	firstName: string
+	lastName: string
+}
 export type useUserType = LoginResponse | null
 const baseUrl = 'http://localhost:5000/'
 
 export const api = createApi({
+	keepUnusedDataFor: process.env.NODE_ENV === 'test' ? 0 : 60,
 	baseQuery: fetchBaseQuery({
 		baseUrl,
 		credentials: 'include'
@@ -51,6 +56,14 @@ export const api = createApi({
 				method: 'GET'
 			}),
 			providesTags: ['user']
+		}),
+		changeUserInfo: builder.mutation<LoginResponse, changeUserInfoProps>({
+			query: credentials => ({
+				url: 'api/userInfo',
+				method: 'PUT',
+				body: credentials
+			}),
+			invalidatesTags: ['user']
 		})
 	})
 })
@@ -59,6 +72,5 @@ export const {
 	useUseUserQuery,
 	useSignupMutation,
 	useLogOutMutation,
-	useLazyUseUserQuery,
-	util
+	useChangeUserInfoMutation
 } = api

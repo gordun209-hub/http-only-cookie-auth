@@ -7,40 +7,32 @@ import {
 } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-type Inputs = {
-	firstname: string
-	lastname: string
-}
-type User = {
-	id: number
-	username: string
-	firstName: string
-	lastName: string
-	email: string
-	createdAt: string
-	updatedAt: string
-} | null
+import { useChangeUserInfoMutation } from '@/services/api'
+import type { changeUserInfoFormProps, Inputs } from '@/types/index'
+
 const ChangeUserInfoForm = ({
 	open,
 	setOpen,
 	user
-}: {
-	open: boolean
-	setOpen: (open: boolean) => void
-	user: User
-}) => {
+}: changeUserInfoFormProps) => {
 	const {
 		handleSubmit,
 		register,
-		formState: { errors, isSubmitting }
+		formState: { errors }
 	} = useForm<Inputs>()
 	const setOrUpdateUser =
 		user?.lastName || user?.firstName ? 'updateInfo' : 'setInfo'
-	const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
-
+	const [changeUserInfo, { isLoading }] = useChangeUserInfoMutation()
+	const onSubmit: SubmitHandler<Inputs> = data =>
+		changeUserInfo({
+			firstName: data.firstname,
+			lastName: data.lastname
+		}).then(() => setOpen(false))
 	return (
 		<>
-			<Button onClick={() => setOpen(!open)}>{setOrUpdateUser}</Button>
+			<Button data-cy={'updateInfoBtn'} onClick={() => setOpen(!open)}>
+				{setOrUpdateUser}
+			</Button>
 			{open && (
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<FormControl isInvalid={!!errors.firstname}>
@@ -67,12 +59,7 @@ const ChangeUserInfoForm = ({
 							{errors.lastname && errors.lastname.message}
 						</FormErrorMessage>
 					</FormControl>
-					<Button
-						mt={4}
-						colorScheme='teal'
-						isLoading={isSubmitting}
-						type='submit'
-					>
+					<Button mt={4} colorScheme='teal' isLoading={isLoading} type='submit'>
 						Submit
 					</Button>
 				</form>

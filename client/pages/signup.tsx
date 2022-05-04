@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
-import { PasswordInput } from '@/components/LoginPage'
+import { PasswordInput } from '@/components/index'
 import { selectUser, setAuth } from '@/features/auth/authSlice'
 import { useSignupMutation } from '@/services/api'
 
@@ -38,6 +38,7 @@ const LoginPage = () => {
 				<Box>Hint: enter anything, or leave it blank and hit login</Box>
 				<InputGroup>
 					<Input
+						data-cy={'email-input'}
 						name='email'
 						type='text'
 						placeholder='Email'
@@ -49,7 +50,6 @@ const LoginPage = () => {
 					<PasswordInput name='password' onChange={handleChange} />
 				</InputGroup>
 				<Button
-					isFullWidth
 					colorScheme='green'
 					isLoading={isLoading}
 					onClick={async () => {

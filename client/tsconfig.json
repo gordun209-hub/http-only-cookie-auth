@@ -31,7 +31,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"types.d.ts",
-		"jest.config.js"
+		"jest.config.js",
+		"cypress/support/index.js"
 	],
 	"exclude": ["node_modules"]
 }

@@ -83,7 +83,8 @@
 				"plugin:jest/recommended",
 				"plugin:jest/style",
 				"plugin:jest-dom/recommended",
-				"plugin:testing-library/react"
+				"plugin:testing-library/react",
+				"plugin:eslint-plugin-testing-library/react"
 			],
 			"plugins": ["jest", "jest-dom", "testing-library"],
 			"rules": {

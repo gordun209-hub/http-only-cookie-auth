@@ -2,48 +2,47 @@ import { Box, Button, Flex } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useEffect } from 'react'
 
-import { useAppDispatch, useAppSelector } from '@/app/hooks'
+import { useAppDispatch } from '@/app/hooks'
 import { setAuth } from '@/features/auth/authSlice'
 import { useUseUserQuery } from '@/services/api'
 
 import LogOutButton from '../LogOutButton/LogOutButton'
 
 const Layout = () => {
-	const user = useAppSelector(state => state.auth.user)
 	const dispatch = useAppDispatch()
 	const { data, isLoading } = useUseUserQuery()
 	useEffect(() => {
-		dispatch(setAuth(data))
+		dispatch(setAuth(data || null))
 	}, [data, dispatch])
 	if (isLoading) {
 		return null
 	}
 	return (
 		<>
-			<Flex w={'100%'}>
+			<Flex w={'100%'} data-cy={'layoutContainer'}>
 				<Flex>
 					<Link passHref href='/'>
-						<Button>FEED</Button>
+						<Button data-cy={'linkToFeed'}>FEED</Button>
 					</Link>
 					{data ? (
-						<Box w={'100%'} justifySelf='end'>
+						<Box data-cy={'link-to-admin-box'} w={'100%'} justifySelf='end'>
 							<Link passHref href='/admin'>
-								<Button justifySelf={'end'}>Write posts</Button>
+								<Button data-cy={'admin-link'} justifySelf={'end'}>
+									Write posts
+								</Button>
 							</Link>
 							<LogOutButton />
 						</Box>
 					) : (
-						<Box>
-							<Button>
-								<Link passHref href='/login'>
+						<Box data-cy={'login/signup-links-container'}>
+							<Button data-cy={'loginButton'}>
+								<Link passHref data-cy={'login-link'} href='/login'>
 									Login
 								</Link>
 							</Button>
-							<Button>
-								<Link href='/signup'>
-									<a>Signup</a>
-								</Link>
-							</Button>
+							<Link passHref href='/signup'>
+								<Button data-cy={'signup-link'}>Signup</Button>
+							</Link>
 						</Box>
 					)}
 				</Flex>
