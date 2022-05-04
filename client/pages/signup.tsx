@@ -50,6 +50,7 @@ const LoginPage = () => {
 					<PasswordInput name='password' onChange={handleChange} />
 				</InputGroup>
 				<Button
+					data-cy={'form-signup'}
 					colorScheme='green'
 					isLoading={isLoading}
 					onClick={async () => {

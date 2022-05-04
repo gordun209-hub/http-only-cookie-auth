@@ -1,4 +1,3 @@
-/// <reference types="cypress" />
 describe('E2E Tests', () => {
 	beforeEach(() => {
 		cy.visit('http://localhost:3000/')
@@ -8,14 +7,17 @@ describe('E2E Tests', () => {
 		cy.get('[data-cy="loginButton"]').as('loginButton')
 		cy.get('[data-cy="linkToFeed"]').as('feedButton')
 	})
+
 	afterEach(() => {
 		cy.clearCookies()
 	})
+
 	it('should display the correctly', () => {
 		cy.get('@feedButton').contains('FEED')
 		cy.get('@loginButton').contains('Login')
 		cy.get('@signupButton').contains('Signup')
 	})
+
 	it('should login', () => {
 		cy.get('@loginButton').click()
 		cy.get('[data-cy="email-input"]').type('gordun209.com')
@@ -97,5 +99,72 @@ describe('user actions', () => {
 		cy.get('[data-cy="logout-btn"]').click()
 		cy.url().should('include', '/login')
 		cy.get('[data-cy="form-login"]').contains('Login')
+	})
+	describe('user can sign up', () => {
+		it('user can sign up and change user info', () => {
+			cy.get('[data-cy="signup-link"]').click()
+			cy.get('[data-cy="email-input"]').type('gordun209.com')
+			cy.get('[data-cy="password-input"]').type('123456')
+			cy.intercept('GET', 'http://localhost:5000/api/me', {
+				statusCode: 200,
+				body: {
+					id: 1,
+					email: 'gordun209.com',
+					password: '123456',
+					name: 'Gordun209',
+					createdAt: '2020-01-01T00:00:00.000Z',
+					updatedAt: '2020-01-01T00:00:00.000Z'
+				}
+			})
+			cy.intercept(
+				{
+					method: 'POST',
+					url: 'http://localhost:5000/api/signup'
+				},
+				[
+					{
+						statusCode: 200,
+						body: {
+							firstName: 'alihan',
+							lastName: 'aydin',
+							id: '31',
+							createdAt: '2020-01-01T00:00:00.000Z',
+							updatedAt: '2020-01-01T00:00:00.000Z',
+							email: 'gordun209.com',
+							password: '123456'
+						},
+
+						headers: {
+							'set-cookie': ['token=123456789']
+						},
+						delay: 1000
+					}
+				]
+			)
+			cy.intercept('POST', 'http://localhost:5000/api/userInfo', {
+				statusCode: 200,
+				body: {
+					firstName: 'alihan',
+					lastName: 'aydin'
+				}
+			})
+
+			cy.setCookie('TRAX_ACCESS_TOKEN', '123456789')
+			cy.get('[data-cy="form-signup"]').click()
+
+			cy.get('[data-cy="logout-btn"]')
+			cy.get('[data-cy="admin-link"]').contains('Write posts').click()
+			cy.get('[data-cy="updateInfoBtn"]')
+				.click()
+				.get('#name')
+				.type('test')
+				.get('#lastname')
+				.type('test')
+				.get('form > .chakra-button')
+				.click()
+			cy.get('[data-cy="logout-btn"]').click()
+			cy.url().should('include', '/login')
+			cy.get('[data-cy="form-login"]').contains('Login')
+		})
 	})
 })

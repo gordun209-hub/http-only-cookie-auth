@@ -1,12 +1,12 @@
 // Optional: configure or set up a testing framework before each test.
 // If you delete this file, remove `setupFilesAfterEnv` from `jest.config.js`
 // import AbortController from 'abort-controller'
-import { jestPreviewConfigure } from 'jest-preview'
 import { fetch, Headers, Request, Response } from 'cross-fetch'
 import { server } from './__mocks__/api/server'
 // Used for __tests__/testing-library.js
-// Learn more: https://github.com/testing-library/jest-dom
+import AbortController from 'abort-controller'
 import '@testing-library/jest-dom/extend-expect'
+// Learn more: https://github.com/testing-library/jest-dom
 global.fetch = fetch
 global.Headers = Headers
 global.Request = Request

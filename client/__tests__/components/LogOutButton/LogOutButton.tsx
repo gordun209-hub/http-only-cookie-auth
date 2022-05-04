@@ -18,8 +18,8 @@ jest.mock('@/app/hooks', () => ({
 describe('LogOutButton', () => {
 	it('should render correctly', async () => {
 		render(<LogOutButton />)
-		expect(screen.getByText('Log out')).toBeInTheDocument()
-		userEvent.click(screen.getByText('Log out'))
+		expect(screen.getByText('Logout')).toBeInTheDocument()
+		userEvent.click(screen.getByText('Logout'))
 		await waitFor(() => {
 			expect(mockRouter).toHaveBeenCalledTimes(1)
 		})
